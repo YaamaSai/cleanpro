@@ -1,0 +1,16 @@
+/* ============================================================
+   CleanPro — Dark mode (semantic token overrides — toggled via [data-theme="dark"])
+   ============================================================ */
+
+[data-cp-root][data-theme="dark"]{
+    --canvas:#08110D; --surface:#0E1A15; --surface-2:#13221B; --surface-3:#172A21;
+    --ink:#EAF1EC; --ink-soft:#AAB9B1; --muted:#7E8E85;
+    --line:#1E2E26; --line-2:#243a30;
+    --pine:#2E9C72; --pine-2:#1C6B4D; --pine-soft:#11251D;
+    --mint:#39D69E; --mint-soft:#10271F;
+    --amber:#E0B24E; --amber-soft:#241E0F; --red:#E8746E; --red-soft:#26120F;
+    --info:#5FB8D6; --info-soft:#0E2027;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow-md:0 10px 30px -10px rgba(0,0,0,.6);
+    --shadow-lg:0 30px 70px -24px rgba(0,0,0,.75);
+  }

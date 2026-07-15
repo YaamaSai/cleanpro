@@ -1,0 +1,281 @@
+/* ============================================================
+   CleanPro — RTL + responsive overrides
+   ============================================================ */
+
+/* =========================================================================
+   CleanPro — Mobile & Tablet responsive layer
+   Desktop styles live inline in CleanPro.dc.html and are untouched.
+   Activates only at <=1024px (tablet) and <=640px (mobile).
+   NOTE: the runtime re-serializes inline styles, so selectors match the
+   NORMALIZED form: "grid-template-columns: repeat(4, 1fr)", ".9fr" -> "0.9fr",
+   property separators are "; ".  Selectors are anchored with the property
+   name + trailing ";" so dashboard table-row grids (which use 2fr etc.) are
+   never accidentally collapsed.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   TABLET  (<= 1024px)  — collapse dense card grids to 2 columns
+   --------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  [data-cp-root] [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [data-cp-root] [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [data-cp-root] [style*="grid-template-columns: repeat(5, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+  [data-cp-root] footer [style*="grid-template-columns: 1.4fr 1fr 1fr 1fr"] { grid-template-columns: repeat(2, 1fr) !important; }
+  /* keep navbar pinned to top on tablet */
+  [data-cp-root] .cp-nav { position: sticky !important; top: 0 !important; z-index: 60 !important; }
+  /* dashboard: off-canvas drawer on tablet too */
+  [data-cp-root] .cp-dash { flex-direction: column !important; }
+  [data-cp-root] .cp-dash-actions { display: none !important; }
+  [data-cp-root] .cp-dash-burger { display: grid !important; width: 38px !important; height: 38px !important; }
+  [data-cp-root] .cp-dash-burger i { width: 18px !important; height: 18px !important; }
+  [data-cp-root] .cp-dash-search { display: none !important; }
+  [data-cp-root] .cp-dash-header { position: sticky !important; top: 0 !important; z-index: 120 !important; }
+  [data-cp-root] .cp-dash-aside {
+    position: fixed !important; left: 0 !important; top: 0 !important;
+    width: 276px !important; max-width: 84vw !important; height: 100vh !important;
+    z-index: 300 !important; transform: translateX(-100%) !important;
+    transition: transform .26s cubic-bezier(.2,.7,.2,1) !important;
+    overflow-y: auto !important; box-shadow: 0 18px 50px -12px rgba(8,24,18,.45) !important;
+  }
+  [data-cp-root] .cp-dash.drawer-open .cp-dash-aside { transform: translateX(0) !important; }
+  [data-cp-root] .cp-aside-dark { background: #0c2c20 !important; }
+  /* RTL: drawer slides in from the right */
+  [dir="rtl"] .cp-dash-aside { left: auto !important; right: 0 !important; transform: translateX(100%) !important; }
+  [dir="rtl"] .cp-dash.drawer-open .cp-dash-aside { transform: translateX(0) !important; }
+  [data-cp-root] .cp-dash-backdrop {
+    display: block !important; position: fixed !important; inset: 0 !important;
+    background: rgba(8,24,18,.5) !important; z-index: 250 !important;
+    opacity: 0 !important; pointer-events: none !important; transition: opacity .26s ease !important;
+  }
+  [data-cp-root] .cp-dash.drawer-open .cp-dash-backdrop { opacity: 1 !important; pointer-events: auto !important; }
+  /* dark toggle lives in the drawer on tablet; hide the header one */
+  [data-cp-root] .cp-drawer-dark { display: flex !important; }
+  [data-cp-root] .cp-dash-headdark { display: none !important; }
+  [data-cp-root] .cp-dash main [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  [data-cp-root] .cp-dash main [style*="grid-template-columns"] > * { min-width: 0 !important; }
+  [data-cp-root] .cp-thead { display: none !important; }
+  /* center industry-card icons */
+  [data-cp-root] .cp-ind-icon { margin-left: auto !important; margin-right: auto !important; }
+  [data-cp-root] .cp-ind-card { text-align: center !important; }
+  [data-cp-root] .cp-ind-icon2 { display: block !important; margin: 0 auto 16px !important; }
+  /* service-detail hero stacks on tablet too */
+  [data-cp-root] .cp-svc-hero { grid-template-columns: 1fr !important; gap: 28px !important; }
+}
+
+/* ---------------------------------------------------------------------------
+   NAV  — switch to hamburger before the links would overflow
+   --------------------------------------------------------------------------- */
+@media (max-width: 920px) {
+  [data-cp-root] .cp-navlinks { display: none !important; }
+  [data-cp-root] .cp-burger { display: grid !important; }
+  /* dark-toggle + Login move into the hamburger menu */
+  [data-cp-root] .cp-nav-dark { display: none !important; }
+  [data-cp-root] .cp-nav-login { display: none !important; }
+}
+
+/* ---------------------------------------------------------------------------
+   MOBILE  (<= 640px)  — single column everywhere, compact spacing
+   --------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+
+  /* --- navbar stays pinned to top on phones --- */
+  [data-cp-root] .cp-nav { position: sticky !important; top: 0 !important; z-index: 60 !important; }
+  /* active nav link in hamburger menu */
+  [data-cp-root] .cp-mlink-on { background: var(--pine-soft) !important; color: var(--pine) !important; font-weight: 700 !important; box-shadow: inset 3px 0 0 var(--pine) !important; }
+
+  /* --- multi-column CARD grids stack to one column --- */
+  [data-cp-root] [style*="grid-template-columns: repeat(2, 1fr)"],
+  [data-cp-root] [style*="grid-template-columns: repeat(3, 1fr)"],
+  [data-cp-root] [style*="grid-template-columns: repeat(4, 1fr)"],
+  [data-cp-root] [style*="grid-template-columns: repeat(5, 1fr)"],
+  /* --- two-column SPLITS (normalized values, anchored) --- */
+  [data-cp-root] [style*="grid-template-columns: 1fr 1.06fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.02fr 0.98fr"],
+  [data-cp-root] [style*="grid-template-columns: 1fr 1fr;"],
+  [data-cp-root] [style*="grid-template-columns: 1fr 0.9fr"],
+  [data-cp-root] [style*="grid-template-columns: 1fr 0.82fr"],
+  [data-cp-root] [style*="grid-template-columns: 0.95fr 1.05fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.05fr 0.95fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.1fr 1fr;"],
+  [data-cp-root] [style*="grid-template-columns: 0.9fr 1.1fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.1fr 0.9fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.4fr 0.8fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.04fr 0.96fr"],
+  [data-cp-root] [style*="grid-template-columns: 1.5fr 1fr;"],
+  [data-cp-root] [style*="grid-template-columns: 1.3fr 1fr;"],
+  [data-cp-root] footer [style*="grid-template-columns: 1.4fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- fluid headings so big display type never overflows --- */
+  [data-cp-root] h1 { font-size: clamp(28px, 8.5vw, 40px) !important; line-height: 1.1 !important; }
+  [data-cp-root] h2 { font-size: clamp(24px, 6.5vw, 32px) !important; line-height: 1.12 !important; }
+
+  /* --- shrink oversized card / section padding (normalized "padding: ") --- */
+  [data-cp-root] [style*="padding: 48px"],
+  [data-cp-root] [style*="padding: 52px"],
+  [data-cp-root] [style*="padding: 60px"],
+  [data-cp-root] [style*="padding: 44px"],
+  [data-cp-root] [style*="padding: 40px 44px"],
+  [data-cp-root] [style*="padding: 40px 48px"],
+  [data-cp-root] [style*="padding: 52px 48px"],
+  [data-cp-root] [style*="padding: 60px 48px"],
+  [data-cp-root] [style*="padding: 36px"] {
+    padding: 24px !important;
+  }
+  [data-cp-root] [style*="padding: 34px 44px"] { padding: 28px 22px !important; }
+  [data-cp-root] [style*="padding: 48px 52px"] { padding: 30px 22px !important; }
+  [data-cp-root] [style*="padding: 64px 24px"] { padding: 40px 18px !important; }
+
+  /* --- tighten the large split gaps --- */
+  [data-cp-root] [style*="gap: 48px"],
+  [data-cp-root] [style*="gap: 56px"] { gap: 28px !important; }
+
+  /* --- hero min-heights become natural so content fits --- */
+  [data-cp-root] [style*="min-height: calc(100vh - 104px)"] { min-height: 0 !important; }
+
+  /* --- AUTH pages: hide the photo brand panel, form fills width --- */
+  [data-cp-root] .auth-brand { display: none !important; }
+  [data-cp-root] .auth-social { min-width: 0 !important; padding-left: 6px !important; padding-right: 6px !important; font-size: 13px !important; }
+  [data-cp-root] [style*="padding: 40px"][style*="background: var(--canvas)"] { padding: 20px 16px !important; }
+
+  /* --- hero CTA buttons stack full-width instead of squishing --- */
+  [data-cp-root] .cp-cta-row { flex-direction: column !important; align-items: stretch !important; }
+  [data-cp-root] .cp-cta-row > button { width: 100% !important; justify-content: center !important; }
+
+  /* --- hero overlay "Manage your" card: centered, smaller, no float --- */
+  [data-cp-root] .cp-hero-photo { min-height: 0 !important; background: transparent !important; }
+  [data-cp-root] .cp-hero-img { position: relative !important; height: 230px !important; border-radius: 16px !important; }
+  [data-cp-root] .cp-hero-deco { display: none !important; }
+  [data-cp-root] .cp-hero-card {
+    position: relative !important;
+    right: auto !important; bottom: auto !important;
+    width: 100% !important; max-width: 360px !important;
+    margin: 16px auto 0 !important;
+    animation: none !important;
+  }
+
+  /* --- CTA bands: stack text above button, button full-width inside card --- */
+  [data-cp-root] [style*="border-radius: 26px"][style*="justify-content: space-between"] {
+    flex-direction: column !important; align-items: flex-start !important; gap: 22px !important;
+  }
+  [data-cp-root] [style*="border-radius: 26px"][style*="justify-content: space-between"] > button {
+    width: 100% !important; justify-content: center !important; white-space: normal !important;
+  }
+
+  /* --- newsletter email + Subscribe: force a clean stacked, fully-contained column --- */
+  [data-cp-root] [style*="display: flex"][style*="gap: 10px"]:has(> input[placeholder="you@company.com"]) {
+    flex-direction: column !important; align-items: stretch !important; flex-wrap: nowrap !important; width: 100% !important;
+  }
+  [data-cp-root] [style*="display: flex"][style*="gap: 10px"]:has(> input[placeholder="you@company.com"]) > input,
+  [data-cp-root] [style*="display: flex"][style*="gap: 10px"]:has(> input[placeholder="you@company.com"]) > button {
+    flex: 0 0 auto !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; margin: 0 !important;
+  }
+
+  /* --- safety: never allow horizontal scroll on phones --- */
+  /* NOTE: use clip, not hidden — hidden establishes a scroll container that breaks position:sticky on the navbar */
+  [data-cp-root] { overflow-x: clip !important; }
+
+  /* --- DASHBOARD: off-canvas left drawer + sticky header --- */
+  [data-cp-root] .cp-dash { flex-direction: column !important; }
+  [data-cp-root] .cp-dash-burger { display: grid !important; width: 38px !important; height: 38px !important; }
+  [data-cp-root] .cp-dash-burger i { width: 18px !important; height: 18px !important; }
+  [data-cp-root] .cp-dash-actions { display: none !important; }
+  [data-cp-root] .cp-dash-search { display: none !important; }
+  [data-cp-root] .cp-dash-header { padding: 0 16px !important; position: sticky !important; top: 0 !important; z-index: 120 !important; }
+  /* sidebar slides in from the left */
+  [data-cp-root] .cp-dash-aside {
+    position: fixed !important;
+    left: 0 !important; top: 0 !important;
+    width: 276px !important; max-width: 84vw !important;
+    height: 100vh !important;
+    z-index: 300 !important;
+    transform: translateX(-100%) !important;
+    transition: transform .26s cubic-bezier(.2,.7,.2,1) !important;
+    overflow-y: auto !important;
+    box-shadow: 0 18px 50px -12px rgba(8,24,18,.45) !important;
+  }
+  [data-cp-root] .cp-dash.drawer-open .cp-dash-aside { transform: translateX(0) !important; }
+  [data-cp-root] .cp-aside-dark { background: #0c2c20 !important; }
+  /* RTL: drawer slides in from the right */
+  [dir="rtl"] .cp-dash-aside { left: auto !important; right: 0 !important; transform: translateX(100%) !important; }
+  [dir="rtl"] .cp-dash.drawer-open .cp-dash-aside { transform: translateX(0) !important; }
+  /* dimmed backdrop behind the drawer */
+  [data-cp-root] .cp-dash-backdrop {
+    display: block !important;
+    position: fixed !important; inset: 0 !important;
+    background: rgba(8,24,18,.5) !important;
+    z-index: 250 !important;
+    opacity: 0 !important; pointer-events: none !important;
+    transition: opacity .26s ease !important;
+  }
+  [data-cp-root] .cp-dash.drawer-open .cp-dash-backdrop { opacity: 1 !important; pointer-events: auto !important; }
+  /* dark toggle lives in the drawer on mobile; hide the header one */
+  [data-cp-root] .cp-drawer-dark { display: flex !important; }
+  [data-cp-root] .cp-dash-headdark { display: none !important; }
+  /* dashboard inner content stacks step-by-step (single column) on phones */
+  [data-cp-root] .cp-dash main [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  [data-cp-root] .cp-dash main [style*="grid-template-columns"] > * { min-width: 0 !important; }
+  [data-cp-root] .cp-thead { display: none !important; }
+  /* request rows become stacked cards: icon+title on top, date+status below */
+  [data-cp-root] .cp-req-row { flex-wrap: wrap !important; row-gap: 10px !important; }
+  [data-cp-root] .cp-req-row > div:nth-child(2) { flex: 1 1 calc(100% - 52px) !important; }
+  [data-cp-root] .cp-req-row > div:nth-child(2) > div:first-child { white-space: normal !important; }
+  [data-cp-root] .cp-req-row > div:nth-child(3) { margin-left: 52px !important; }
+  /* spending bar chart: tighter gaps + smaller labels so it fits the card */
+  [data-cp-root] .cp-bar-chart { gap: 6px !important; padding: 0 !important; width: 100% !important; box-sizing: border-box !important; }
+  [data-cp-root] .cp-bar-chart > div { min-width: 0 !important; }
+  [data-cp-root] .cp-bar-chart [style*="font-family: 'JetBrains Mono'"] { font-size: 10px !important; white-space: normal !important; text-align: center !important; line-height: 1.15 !important; }
+  [data-cp-root] .cp-bar-chart [style*="font-family: 'Schibsted Grotesk'"] { font-size: 11px !important; text-align: center !important; line-height: 1.2 !important; }
+
+  /* GENERAL: every dashboard list row (icon + text + trailing) becomes a stacked card */
+  [data-cp-root] .cp-dash main [style*="display: flex"][style*="border-bottom: 1px solid var(--line-2)"] { flex-wrap: wrap !important; row-gap: 8px !important; align-items: flex-start !important; }
+  [data-cp-root] .cp-dash main [style*="display: flex"][style*="border-bottom: 1px solid var(--line-2)"] > div:nth-child(2) { flex: 1 1 calc(100% - 52px) !important; min-width: 0 !important; }
+  [data-cp-root] .cp-dash main [style*="display: flex"][style*="border-bottom: 1px solid var(--line-2)"] > :nth-child(n+3) { margin-left: 52px !important; }
+  /* dashboard tables / week grid scroll horizontally instead of breaking */
+  [data-cp-root] .cp-dash main { overflow-x: auto !important; }
+
+  /* --- widen content: trim the page side gutter on phones so cards are larger --- */
+  [data-cp-root] [style*="max-width: 1320px"],
+  [data-cp-root] [style*="max-width: 1100px"] { padding-left: 14px !important; padding-right: 14px !important; }
+
+  /* --- milestones timeline reads better stacked --- */
+  [data-cp-root] [style*="grid-template-columns: repeat(5, 1fr)"] { grid-template-columns: 1fr !important; }
+
+  /* --- section headers: stack title above the "All services" button --- */
+  [data-cp-root] .cp-sec-head { flex-direction: column !important; align-items: flex-start !important; gap: 18px !important; }
+  [data-cp-root] .cp-sec-head > button { width: auto !important; }
+
+  /* --- 'Don't see your exact scope?' band: stack text + button --- */
+  [data-cp-root] .cp-scope-band { flex-direction: column !important; align-items: flex-start !important; gap: 22px !important; text-align: left !important; }
+  [data-cp-root] .cp-scope-band > button { width: 100% !important; box-sizing: border-box !important; justify-content: center !important; }
+
+  /* --- service-detail hero: image on top, text below, button row wraps --- */
+  [data-cp-root] .cp-svc-hero { grid-template-columns: 1fr !important; gap: 24px !important; }
+  [data-cp-root] .cp-svc-hero > div:first-child { order: 2 !important; }
+  [data-cp-root] .cp-svc-hero > div:last-child { order: 1 !important; min-height: 230px !important; }
+
+  /* --- services-list card: stack image on top, content below --- */
+  [data-cp-root] .cp-svc-list-card { flex-direction: column !important; }
+  [data-cp-root] .cp-svc-list-img { width: 100% !important; height: 180px !important; }
+
+  /* --- stats strips: tidy 2x2 cards instead of one tall column --- */
+  [data-cp-root] .cp-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 22px 0 !important; }
+  [data-cp-root] .cp-stats > div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; text-align: center; }
+  [data-cp-root] .cp-stats > div > div:first-child { font-size: 30px !important; }
+  /* dark 'By the numbers' band: transparent cards, keep light labels legible */
+  [data-cp-root] .cp-stats-dark { gap: 16px !important; padding: 0 !important; }
+  [data-cp-root] .cp-stats-dark > div { background: rgba(255,255,255,.08) !important; border-color: rgba(255,255,255,.16) !important; }
+
+  /* --- Home 2 hero: shorter, hide floating stat cards so CTAs don't overlap --- */
+  [data-cp-root] .cp-h2hero { min-height: 78vh !important; }
+  [data-cp-root] .cp-h2hero-stats { display: none !important; }
+}
+
+/* ---------------------------------------------------------------------------
+   SMALL MOBILE  (<= 420px) — extra breathing room
+   --------------------------------------------------------------------------- */
+@media (max-width: 420px) {
+  [data-cp-root] [style*="padding: 30px"],
+  [data-cp-root] [style*="padding: 32px"] { padding: 20px !important; }
+}

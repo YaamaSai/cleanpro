@@ -1,0 +1,1 @@
+Fonts (Spectral, Schibsted Grotesk, JetBrains Mono) load from Google Fonts CDN.

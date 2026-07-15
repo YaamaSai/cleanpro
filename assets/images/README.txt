@@ -1,0 +1,1 @@
+Imagery is loaded from Unsplash CDN URLs inside index.html. Replace with owned assets for production.
