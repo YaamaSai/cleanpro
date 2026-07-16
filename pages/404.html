@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | CleanPro</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230B5E4C'/%3E%3Cg transform='translate(15 15) scale(1.4)' fill='none' stroke='%23C8F24B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 4.8 7 3c-.29 1.8-1.14 3.16-2.29 4.06S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z'/%3E%3Cpath d='M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97'/%3E%3C/g%3E%3C/svg%3E">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('../assets/images/cleaning_bg_404.png') center center / cover no-repeat;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 45, 30, 0.82) 0%, rgba(17, 75, 56, 0.75) 100%);
+            z-index: 1;
+        }
+
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.025em;
+        }
+
+
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(200, 242, 75, 0.25);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            max-width: 90%;
+            width: 500px;
+        }
+
+        h1 {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: #C8F24B;
+            text-shadow: 0 10px 40px rgba(200, 242, 75, 0.4);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+
+
+        @media (max-width: 640px) {
+            h1 { font-size: 6rem; }
+            h2 { font-size: 1.5rem; }
+            .header { top: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="44" height="44">
+            <rect width="64" height="64" rx="16" fill="#0B5E4C"/>
+            <g transform="translate(15 15) scale(1.4)" fill="none" stroke="#C8F24B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 4.8 7 3c-.29 1.8-1.14 3.16-2.29 4.06S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/>
+                <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>
+            </g>
+        </svg>
+        <span class="company-name">CleanPro</span>
+    </div>
+
+    <div class="bg-overlay"></div>
+    
+    <div class="container">
+        <h1>404</h1>
+        <h2>Lost in Space</h2>
+        <p>The page you are looking for has vanished or never existed in the first place.</p>
+    </div>
+</body>
+</html>
